@@ -29,25 +29,31 @@ body{
     position:fixed;
     top:0;
     left:0;
-    width: 90%;
+    width: 100%;
     padding: 1% 1%;
     background:transparent ;
     display: flex;
-    justify-content:space-between;
+    justify-content:space-around;
     align-items: center;
     z-index: 100;
     transition: .3s;
 }
 
 .header.sticky{
-   background:yellowgreen;
+   background:var(--bg-color);
 }
 
 .logo{
+   position: relative;
     font-size:2.5rem;
     color:var(--text-color);
     font-weight: 600;
 }
+
+.navbar{
+   position: relative;
+}
+
 .navbar a {
         font-size: 1.9rem;
         color: var(--text-color);
@@ -62,6 +68,7 @@ body{
     color:var(--main-color) 
  }
 #menu-icon{
+   position: relative;
     font-size: 3.6rem;
     color:var(--text-color);
     cursor:pointer;
@@ -82,8 +89,11 @@ section{
 }
 .home-content{
     max-width: 50rem;
+    z-index: 99;
 }
 .home-content h1{
+   position: relative;
+   display: inline-block;
     font-size: 5.6rem;
     font-weight: 700;
     line-height: 1.3;
@@ -109,8 +119,31 @@ section{
     font-weight: 700;
     color: transparent;
     -webkit-text-stroke: .7px var(--main-color);
+    background-image: linear-gradient(var(--main-color),var(--main-color) );
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-position: -33rem 0;
+   animation: homeBgText 6s linear infinite; 
+   animation-delay: 2s;  
+
 }
+
+
+.home-content .text-animate h3::before{
+   content: '';
+   position: absolute;
+   top:0;
+   left:0;
+   width: 0;
+   height: 100%;
+   border-right: 2px solid var(--main-color);
+   z-index: -1;
+   animation: homeCursorText 6s linear infinite; 
+   animation-delay: 2s;
+}
+
 .home-content p{
+   position: relative;
     font-size: 1.6rem;
     margin:2rem 0 4rem;
 }
@@ -220,7 +253,7 @@ section{
     position: absolute;
     top: 0;
     right: 0;
-    width: 45%;
+    width: 100%;
     height: 100%;
     background:transparent;
     transition: 3s;
@@ -241,6 +274,7 @@ section{
     padding: 20px;
  }
  .heading{
+   position: relative;
     font-size: 4rem;
     margin-bottom: 1rem;
     text-align: center;
@@ -270,18 +304,22 @@ section{
    width: 100%;
    height: 100%;
    border-radius: 50%;
-   border-top: .2rem dashed var(--bg-color);
+   border-top: .2rem dashed var(--second-bg-color);
+   border-bottom: .2rem dashed var(--second-bg-color);
    border-left: .2rem dashed var(--main-color);
    border-right: .2rem dashed var(--main-color);
-   border-bottom: .2rem dashed var(--bg-color);
+   animation: aboutSpinner 8s linear infinite;
  }
  .about-content{
    text-align: center;
  }
 .about-content h3{
+   position: relative;
+   display: inline-block;
    font-size: 2.6rem;;
 }
 .about-content p{
+   position: relative;
    font-size: 1.6rem;
    margin: 2rem 0 1rem;
 }
@@ -575,6 +613,42 @@ section{
    transition: .5s;
 }
 
+/* animation reload and scroll */
+
+.animate{
+   position: absolute;
+   top:0;
+   right: 0;
+   width: 100%;
+   height: 100%;
+   background: yellowgreen;
+   z-index: 98;
+}
+
+.animate.home-img{
+   width: 50%;
+}
+
+.logo .animate,
+.navbar .animate,
+#menu-icon .animate,
+.home.show-animate .animate{
+
+   animation: showRight 1s ease forwards;
+   animation-delay: calc(.3s * var(--i));
+}
+
+.animate.scroll{
+      transition: 1s ease;
+      transition-delay: calc(.3s / var(--i)); 
+      animation: none;
+}
+
+.about.show-animate .animate.scroll{
+   width: 0;
+   transition-delay: calc(.3s * var(--i)); 
+}
+
 @media (max-width:1200px) {
    html{
       font-size: 55%;
@@ -624,11 +698,19 @@ section{
       display: block;
       font-size: 2rem;
       margin: 3rem 0;
+      transform: translateX(-20rem);
+      transition: .25s ease;
+      transition-delay: 0s;
    }
-
+   
    .navbar.active {
       left: 0;
       transition-delay: 0s;
+   }
+
+   .navbar.active a{
+      transform: translateX(0);
+      transition-delay: .25s;
    }
 
    .navbar .active-nav {
@@ -649,4 +731,119 @@ section{
       transition-delay: .25s;
    }
 
+   .home-imgHover{
+      pointer-events: none;
+      background: var(--bg-color);
+      opacity:.6 ;
+   }
+}
+
+@media (max-width:520px) {
+      html{
+         font-size: 50%;
+      }
+      .home-content h1{
+         display: flex;
+         flex-direction: column;
+      }
+
+      .home-sci {
+         width: 160px;
+      }
+
+      .home-sci a{
+         width: 38px;
+         height: 38px;
+ 
+      }
+    
+      .home-imgHover{ 
+         pointer-events: none;
+         background: var(--bg-color);
+         opacity:.6 ;
+      }
+}
+
+@media (max-width:462px) {
+
+   .home-content h1{
+      font-size: 5.2rem;
+   }
+
+   .education {
+      padding: 10rem 4% 5rem 5%;
+   }
+
+   .contact form .input-box .input-field {
+         width: 100%;
+   }
+
+   .footer{
+      flex-direction: column-reverse;
+   }
+
+   .footer p {
+      margin-top: 2rem;
+   }
+}
+
+@media (max-width:371px) {
+
+   .home {
+      justify-content: center;
+   }
+
+   .home-content{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+   }
+
+}
+
+/* keyframes animation */
+
+@keyframes homeBgText {
+
+      0%,10%,100%{
+         background-position: -33rem 0;
+      }
+
+      
+      65%,85%{
+         background-position: 0 0;
+      }
+}
+
+
+@keyframes homeCursorText {
+
+   0%,10%,100%{
+      width: 0;
+   }
+
+   
+   65%,78%,85%{
+      width: 100%;
+      opacity: 1;
+   }
+
+   75%,81%{
+      opacity: 0;
+   }
+
+}
+
+@keyframes aboutSpinner {
+
+   100%{
+      transform: translate(-50%,-50%) rotate(360deg);
+   } 
+}
+
+@keyframes showRight {
+   100%{      
+      width:0;
+   }
 }
