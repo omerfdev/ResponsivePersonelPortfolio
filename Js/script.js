@@ -1,3 +1,4 @@
+
 // toggle icon navbar
 
 let menuIcon = document.querySelector('#menu-icon');
@@ -32,6 +33,8 @@ window.onscroll = () => {
             sec.classList.remove('show-animate');      
            
         }
+        
+       
     });
 
     // sticky header
@@ -47,3 +50,25 @@ window.onscroll = () => {
         let footer= document.querySelector('footer');
         footer.classList.toggle('show-animate', this.innerHeight + this.scrollY >= document.scrollingElement.scrollHeight);
 }
+
+function showAlert() {
+    // Get input field values
+    const fullName = document.querySelector("#fullName").value;
+    const email = document.querySelector("#email").value;
+    const phoneNumber = document.querySelector("#phoneNumber").value;
+    const emailSubject = document.querySelector("#emailSubject").value;
+    const message = document.querySelector("#message").value;
+
+    // Create the alert message
+    const alertMessage = `Full Name: ${fullName}\nEmail: ${email}\nPhone Number: ${phoneNumber}\nEmail Subject: ${emailSubject}\nMessage: ${message}`;
+
+    // Show the alert message
+    alert(alertMessage);
+}
+
+
+   
+
+
+
+        
